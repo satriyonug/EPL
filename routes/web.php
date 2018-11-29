@@ -41,12 +41,8 @@ Route::get('/logout', 'Auth\LoginController@logout');
         Route::get('/jadwal', 'PilihJadwalController@index');
         Route::post('/jadwal', 'PilihJadwalController@store');
 
-        Route::get('/menunggu-bayar', function () {
-            return view('peserta.menunggu-bayar');
-        });
-        Route::get('/menunggu-verifikasi', function () {
-            return view('peserta.menunggu-verifikasi');
-        });
+        Route::get('/menunggu-bayar', 'HomeController@index');
+        Route::get('/menunggu-verifikasi', 'HomeController@index');
         Route::get('/user/evaluasi1', function () {
             return view('peserta.evaluasi');
         });
