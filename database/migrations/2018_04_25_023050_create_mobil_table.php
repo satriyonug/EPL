@@ -21,7 +21,7 @@ class CreateMobilTable extends Migration
           $table->string('tipe_mobil');
           $table->integer('cc');
           $table->string('nomor_rangka');
-          $table->string('foto_mobil');
+          $table->string('foto_mobil')->nullable();
           $table->string('warna');
           $table->char('tahun', 4);
 

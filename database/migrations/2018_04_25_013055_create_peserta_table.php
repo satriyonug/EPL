@@ -22,7 +22,7 @@ class CreatePesertaTable extends Migration
           $table->char('jenis_kelamin', 1);
           $table->date('tanggal_lahir');
           $table->string('alamat');
-          $table->string('foto_peserta');
+          $table->string('foto_peserta')->nullable();
           $table->string('nomor_telepon', 20);
           $table->char('verifikasi', 1)->default('0');
           $table->integer('sisa_kursus')->unsigned();

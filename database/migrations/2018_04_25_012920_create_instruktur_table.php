@@ -20,7 +20,7 @@ class CreateInstrukturTable extends Migration
           $table->char('jenis_kelamin', 1);
           $table->char('no_ktp', 16);
           $table->char('no_sim', 12);
-          $table->string('foto_instruktur');
+          $table->string('foto_instruktur')->nullable();
           $table->string('nomor_telepon');
           $table->string('alamat');
       });

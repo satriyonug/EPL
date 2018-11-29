@@ -17,7 +17,7 @@ class CreatePembayaranTable extends Migration
             $table->increments('id_pembayaran');
             $table->integer('id_peserta')->unsigned();
             $table->integer('jumlah_kursus')->unsigned();
-            $table->string('foto_pembayaran');
+            $table->string('foto_pembayaran')->nullable();
             $table->string('nomor_rekening')->nullable();
             $table->char('verifikasi', 1)->nullable();
             $table->timestamps();
