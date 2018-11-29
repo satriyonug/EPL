@@ -20,31 +20,11 @@ class CreateInstrukturTable extends Migration
           $table->char('jenis_kelamin', 1);
           $table->char('no_ktp', 16);
           $table->char('no_sim', 12);
+          $table->string('foto_instruktur');
           $table->string('nomor_telepon');
           $table->string('alamat');
-
       });
-
-      Schema::table('instruktur_memilih', function (Blueprint $table) {
-          $table->foreign('id_instruktur')
-                ->references('id_instruktur')
-                ->on('instruktur')
-                ->onUpdate('cascade');
-      });
-
-      Schema::table('kursus', function (Blueprint $table) {
-          $table->foreign('id_instruktur')
-                ->references('id_instruktur')
-                ->on('instruktur')
-                ->onUpdate('cascade');
-      });
-
-      Schema::table('peserta', function (Blueprint $table) {
-          $table->foreign('id_instruktur')
-                ->references('id_instruktur')
-                ->on('instruktur')
-                ->onUpdate('cascade');
-      });
+      
     }
 
 

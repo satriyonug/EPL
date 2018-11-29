@@ -15,25 +15,20 @@ class CreateJadwalTable extends Migration
     {
       Schema::create('jadwal', function (Blueprint $table) {
           $table->increments('id_jadwal');
+          $table->unsignedInteger('id_instruktur')->nullable();
           $table->string('hari');
           $table->time('jam_mulai');
           $table->time('jam_selesai');
 
       });
 
-      Schema::table('peserta', function (Blueprint $table) {
-          $table->foreign('id_jadwal')
-                ->references('id_jadwal')
-                ->on('jadwal')
+        Schema::table('jadwal', function (Blueprint $table) {
+            $table->foreign('id_instruktur')
+                ->references('id_instruktur')
+                ->on('instruktur')
+                ->onDelete('cascade')
                 ->onUpdate('cascade');
-      });
-
-      Schema::table('instruktur_memilih', function (Blueprint $table) {
-          $table->foreign('id_jadwal')
-                ->references('id_jadwal')
-                ->on('jadwal')
-                ->onUpdate('cascade');
-      });
+        });
     }
 
     /**

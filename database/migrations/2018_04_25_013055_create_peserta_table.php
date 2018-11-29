@@ -22,24 +22,25 @@ class CreatePesertaTable extends Migration
           $table->char('jenis_kelamin', 1);
           $table->date('tanggal_lahir');
           $table->string('alamat');
+          $table->string('foto_peserta');
           $table->string('nomor_telepon', 20);
           $table->char('verifikasi', 1)->default('0');
           $table->integer('sisa_kursus')->unsigned();
       });
 
-      Schema::table('pembayaran', function (Blueprint $table) {
-          $table->foreign('id_peserta')
-                ->references('id_peserta')
-                ->on('peserta')
+        Schema::table('peserta', function (Blueprint $table) {
+            $table->foreign('id_jadwal')
+                ->references('id_jadwal')
+                ->on('jadwal')
                 ->onUpdate('cascade');
-      });
+        });
 
-      Schema::table('kursus', function (Blueprint $table) {
-          $table->foreign('id_peserta')
-                ->references('id_peserta')
-                ->on('peserta')
-                ->onUpdate('cascade');
-      });
+        Schema::table('peserta', function (Blueprint $table) {
+            $table->foreign('id_instruktur')
+                  ->references('id_instruktur')
+                  ->on('instruktur')
+                  ->onUpdate('cascade');
+        });
     }
 
     /**
