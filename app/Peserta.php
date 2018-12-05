@@ -31,4 +31,14 @@ class Peserta extends Model
     {
       return $this->hasOne('App\User');
     }
+
+    public function instruktur()
+    {
+      return $this->belongsTo('App\Instruktur','id_instruktur');
+    }
+
+    public function sertifikat()
+    {
+      return $this->hasMany('App\Sertifikat','id_peserta');
+    }
 }

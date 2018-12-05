@@ -36,6 +36,13 @@
                 <td class="align-middle">{{$i->alamat}}</td>
                 <td class="align-middle">{{$i->nomor_telepon}}</td>
                 <td><a class="btn btn-primary btn-block" href="{{ url('/admin/instruktur/'.$i->id_instruktur.'/edit') }}">Edit</a></td>
+                <td><a class="btn btn-danger" style="padding:0px;">
+                  <form action="/admin/instruktur/{{ $i->id_instruktur }}" method="POST">
+                    {{csrf_field()}}
+                    <input name="_method" type="hidden" value="delete">
+                    <button class="btn btn-danger">Hapus</button>
+                  </form>
+                </a></td>
               </tr>
               @endforeach
             </tbody>

@@ -8,31 +8,29 @@
     <!-- Example DataTables Card-->
     <div class="card mb-3">
       <div class="card-header">
-        <h3>Peserta</h3></div>
+        <h3>Sertifikat</h3>
+        <a class="btn btn-primary float-right" href="/admin/sertifikat/create">Data baru</a>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
                 <th>Nama Peserta</th>
-                <th>Alamat</th>
-                <th>Jenis kelamin</th>
-                <th>No telp</th>
-                <th>tanggal lahir</th>
+                <th>Nomor Sertifikat</th>
+                <th>Nilai</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              @foreach($peserta as $p)
+              @foreach($sertifs as $sertif)
               <tr>
-                <td class="align-middle">{{$p->nama}}</td>
-                <td class="align-middle">{{$p->alamat}}</td>
-                <td class="align-middle">{{$p->jenis_kelamin}}</td>
-                <td class="align-middle">{{$p->nomor_telepon}}</td>
-                <td class="align-middle">{{$p->tanggal_lahir}}</td>
-                <td><a class="btn btn-primary" href="{{ url('/admin/peserta/'.$p->id_peserta.'/edit') }}">Edit</a>
+                <td class="align-middle">{{$sertif->peserta->nama}}</td>
+                <td class="align-middle">{{$sertif->nomor_sertifikat}}</td>
+                <td class="align-middle">{{$sertif->nilai}}</td>
+                <td><a class="btn btn-primary" href="{{ url('/admin/sertifikat/'.$sertif->id.'/edit') }}">Edit</a>
                 <a class="btn btn-danger" style="padding:0px;">
-                  <form action="/admin/peserta/{{ $p->id_peserta }}" method="POST">
+                  <form action="/admin/sertifikat/{{ $sertif->id }}" method="POST">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="delete">
                     <button class="btn btn-danger">Hapus</button>

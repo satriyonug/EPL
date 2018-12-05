@@ -32,6 +32,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
         Route::resource('/admin/mobil', 'MobilController');
         Route::resource('/admin/instruktur', 'InstrukturController');
         Route::resource('/admin/peserta', 'PesertaController');
+        Route::resource('/admin/sertifikat','SertifikatController');
     });
 
     Route::group(['middleware'=>['peserta']],function(){

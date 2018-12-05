@@ -11,11 +11,20 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <!-- <li><a href="#feature">Features</a></li>
-        <li><a href="#organisations">Organisations</a></li>
-        <li><a href="#courses">Courses</a></li>
-        <li><a href="#pricing">Pricing</a></li> -->
         @if(Auth::check())
+        <li><a href="#feature">Features</a></li>
+        <li><a href="#organisations">Organisations</a></li>
+        <li><a href="#courses" data-toggle="dropdown">Courses</a>
+        
+          <ul class="dropdown-menu show-left" role="menu">
+          <li><a href="{{ url('/petcare') }}">Pet Care</a></li>
+          <li><a href="{{ url('/petcare-detail') }}">Pet Care Detail</a></li>
+          <li><a href="{{ url('/petcare-checkout') }}">Pet Care Checkout</a></li>
+          <li><a href="{{ url('/petcare-chart') }}">Pet Care Cart</a></li>
+          </ul>
+        
+        </li>
+        <li><a href="#pricing">Pricing</a></li>
         <li><a>Halo, {{ Auth::user()->nama }}</a></li>
         <li class="btn-trial"><a href="/logout">Logout</a></li>
         @else

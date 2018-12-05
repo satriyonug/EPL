@@ -48,6 +48,12 @@
           <span class="nav-link-text">Verifikasi</span>
         </a>
       </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+        <a class="nav-link" href="/admin/sertifikat">
+          <i class="fa fa-fw fa-check-square"></i>
+          <span class="nav-link-text">Sertifikat</span>
+        </a>
+      </li>
 
     </ul>
     <ul class="navbar-nav sidenav-toggler">

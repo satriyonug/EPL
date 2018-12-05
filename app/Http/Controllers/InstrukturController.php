@@ -44,6 +44,10 @@ class InstrukturController extends Controller
      */
     public function store(Request $request)
     {
+        $test = $this->validate($request,[
+            'nomor_rekening' => 'numeric|required' //jan bikin semua validator
+            ]);
+
         $user = $this->user->create([
             'email' => $request['email'],
             'nama' => $request['nama'],
@@ -115,7 +119,7 @@ class InstrukturController extends Controller
 
       if($request['password'] != ""){
         $user->update([
-          'password' => bcrypt($request['email']), //salah update
+          'password' => bcrypt($request['password']), //salah update
         ]);
       }
       return redirect('/admin/instruktur');
@@ -127,8 +131,12 @@ class InstrukturController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy($ids)
+    {
+        $instruktur = $this->instruktur->findorfail($ids);
+        $user = $this->user->findorfail($instruktur->id);
+        $instruktur->delete();
+        $user->delete();
+        return redirect('/admin/instruktur')->with('info','Instruktur berhasil dihapus');
+    }
 }

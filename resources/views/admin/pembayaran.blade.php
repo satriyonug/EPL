@@ -18,6 +18,7 @@
                 <th>Nominal</th>
                 <th>No rekening</th>
                 <th>Waktu pembayaran</th>
+                <th>Bukti Pembayaran</th>
                 <th>Status pembayaran</th>
               </tr>
             </thead>
@@ -27,13 +28,14 @@
                 <td class="align-middle">{{$p->peserta->nama}}</td>
                 @if($p->jumlah_kursus == 8)
                 <td class="align-middle">Rp160.000</td>
-                @elseif($p->jumlah_kursus == 8)
+                @elseif($p->jumlah_kursus == 12)
                 <td class="align-middle">Rp200.000</td>
-                @elseif($p->jumlah_kursus == 8)
+                @elseif($p->jumlah_kursus == 16)
                 <td class="align-middle">Rp240.000</td>
                 @endif
                 <td class="align-middle">{{$p->nomor_rekening}}</td>
                 <td class="align-middle">{{$p->updated_at}}</td>
+                <td class="align-middle"><img src="{{ URL::asset('img/buktiBayar/' . $p->foto_pembayaran) }}" alt="{{$p->foto_pembayaran}}" /></td>
                 @if($p->verifikasi == '0')
                   <td>
                     <form action="{{ url('/admin/pembayaran', [$p->id_pembayaran]) }}" method="post" id="workshop-newsletter-form">

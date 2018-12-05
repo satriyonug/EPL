@@ -1,8 +1,6 @@
 <!--Footer-->
 <footer id="footer" class="footer">
   <div class="container text-center">
-
-
     <!-- End newsletter-form -->
     <ul class="social-links">
       <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>

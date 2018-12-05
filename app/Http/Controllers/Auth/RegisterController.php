@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|min:10',
-            'nomor_telepon' => 'required|string|min:6|max:15',
+            'nomor_telepon' => 'required|numeric|min:6',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);

@@ -12,14 +12,14 @@
 
       <div class="col-md-6 col-sm-6">
         <div class="text-comment-small">
-          <p class="text-par">Jadwal : Senin, 09:00</p>
-          <p class="text-par">Instruktur :Herman</p>
+          <p class="text-par">Jadwal : {{ $hari}}, {{ $jamMulai}} - {{ $jamSelesai}}</p>
+          <p class="text-par">Instruktur : {{ $instruktur }}</p>
         </div>
       </div>
+      
       <div class="col-md-6 col-sm-6">
         <div class="text-comment-small">
           <h2>Kursus selanjutnya dalam 2 hari</h2>
-          <!-- <p class="text-name">Abraham Doe - Creative Dırector</p> -->
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
           <!-- Plan  -->
           <div class="pricing-head">
             <h4>Pertemuan 1</h4>
-            <h5>instruktur : herman</h5>
+            <h5>instruktur : {{ $instruktur }}</h5>
           </div>
 
           <!-- Plean Detail -->
@@ -53,7 +53,7 @@
           <!-- Plan  -->
           <div class="pricing-head">
             <h4>Pertemuan 2</h4>
-            <h5>instruktur : herman</h5>
+            <h5>instruktur : {{ $instruktur }}</h5>
           </div>
 
           <!-- Plean Detail -->
@@ -67,9 +67,8 @@
           <!-- Plan  -->
           <div class="pricing-head">
             <h4>Pertemuan 3</h4>
-            <h5>instruktur : herman</h5>
+            <h5>instruktur : {{ $instruktur }}</h5>
           </div>
-
           <!-- Plean Detail -->
           <div class="price-in mart-15">
             <a href="#" class="btn btn-bg red btn-block">Lihat</a>

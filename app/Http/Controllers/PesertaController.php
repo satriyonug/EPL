@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Peserta;
 use App\User;
+use App\Pembayaran;
 
 class PesertaController extends Controller
 {
-    public function __construct(Peserta $peserta, User $user)
+    public function __construct(Peserta $peserta, User $user, Pembayaran $pembayaran)
     {
         $this->peserta = $peserta;
         $this->user = $user;
+        $this->pembayaran = $pembayaran;
     }
     /**
      * Display a listing of the resource.
@@ -95,7 +97,7 @@ class PesertaController extends Controller
 
       if($request['password'] != ""){
         $user->update([
-          'password' => bcrypt($request['email']),
+          'password' => bcrypt($request['password']),
         ]);
       }
       return redirect('/admin/peserta');
@@ -107,8 +109,16 @@ class PesertaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy($ids)
+    {
+      $pembayaran = $this->pembayaran->where('id_peserta',$ids)->delete();
+      $peserta = $this->peserta->findorfail($ids);
+      $user = $this->user->findorfail($ids);
+      
+      $peserta->delete();
+
+      $user->delete();
+
+      return redirect('/admin/peserta')->with('info','peserta berhasil dihapus');
+    }
 }
