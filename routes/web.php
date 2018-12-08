@@ -54,13 +54,14 @@ Route::get('/logout', 'Auth\LoginController@logout');
         Route::get('/menunggu-bayar', 'HomeController@menungguBayar');
         Route::get('/menunggu-verifikasi', 'HomeController@index');
         Route::get('/pilih-jadwal', 'HomeController@jadwal');
-        Route::get('/user/evaluasi1', function () {
-            return view('peserta.evaluasi');
-        });
+        // Route::get('/user/evaluasi1', function () {
+        //     return view('peserta.evaluasi');
+        // });
+        Route::get('/evaluasi-peserta','EvalPesertaController@index');
     });
     Route::group(['middleware'=>['instruktur']],function(){
         
         Route::get('/instruktur/jadwal', 'JadwalController@lihatJadwal');
-        Route::resource('/instruktur/evaluasi', 'KursusController');
+        Route::resource('/instruktur/evaluasi', 'EvaluasiController');
     });
 //});

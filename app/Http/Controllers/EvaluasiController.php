@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Peserta;
+use Auth;
 use Illuminate\Http\Request;
 
 class EvaluasiController extends Controller
 {
+    public function __construct(Peserta $peserta)
+    {
+        $this->peserta = $peserta;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,8 +19,10 @@ class EvaluasiController extends Controller
      */
     public function index()
     {
-        $peserta = $this->peserta->all();
-        return view('instruktur.evaluasi');
+        $user = Auth::user()->id;
+        $peserta = $this->peserta->where('id_instruktur',$user)->get();
+        // dd($peserta);
+        return view('instruktur.evaluasi.evaluasi',compact('peserta'));
     }
 
     /**
@@ -24,7 +32,9 @@ class EvaluasiController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user()->id;
+        $peserta = $this->peserta->where('id_instruktur',$user)->get();
+        return view('instruktur.evaluasi.create', compact ('peserta'));
     }
 
     /**
@@ -35,7 +45,8 @@ class EvaluasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $eval = $this->peserta->where('id_peserta', $request->id_peserta)->update(['evaluasi' => $request->evaluasi]);
+        return redirect('/instruktur/evaluasi');
     }
 
     /**
@@ -55,9 +66,10 @@ class EvaluasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($ids)
     {
-        //
+        $eval = $this->peserta->findorfail($ids);
+        return view('instruktur.evaluasi.edit', compact('eval'));
     }
 
     /**
@@ -67,19 +79,10 @@ class EvaluasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $ids)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $peserta = $this->peserta->findorfail($ids);
+        $eval = $this->peserta->where('id_peserta', $peserta->id_peserta)->update(['evaluasi' => $request->evaluasi]);
+        return redirect('/instruktur/evaluasi');
     }
 }

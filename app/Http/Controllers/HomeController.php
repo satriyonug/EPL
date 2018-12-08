@@ -85,14 +85,14 @@ class HomeController extends Controller
         if(Auth::check()){
           if(Auth::user()->role == "P"){
             $datapeserta = $this->peserta->where('id', Auth::user()->id)->get();
-            if($datapeserta[0]->verifikasi == 0 || $this->pembayaran->where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']]) )
-            {
-              return redirect('home');
-            }
-            elseif($datapeserta[0]->id_jadwal == NULL && $datapeserta[0]->id_instruktur == NULL ){
+            // if($datapeserta[0]->verifikasi == 0 || $this->pembayaran->where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']]) )
+            // {
+            //   return redirect('home');
+            // }
+            if($datapeserta[0]->id_jadwal == NULL && $datapeserta[0]->id_instruktur == NULL ){
               return redirect('/jadwal');
             }
-            elseif($datapeserta[0]->id_jadwal != NULL && $datapeserta[0]->id_instruktur != NULL ){
+            else{
               $peserta = $this->peserta->select('id','id_peserta','id_instruktur','id_jadwal','nama')
               ->where('id_peserta','=',$datapeserta[0]->id_peserta)->get()->toArray();
               $jadwal2 = $this->jadwal->select('hari','jam_mulai','jam_selesai','id_instruktur')

@@ -11,7 +11,7 @@
         <div class="col-md-3 pull-left">
           <h3 class="align-middle">Evaluasi</h3>
         </div>
-        <a class="btn btn-primary float-right" href="/admin/evaluasi/create">Data baru</a>
+        <a class="btn btn-primary float-right" href="/instruktur/evaluasi/create">Data baru</a>
         <div class="col-md-3 pull-right">
 
         </div>
@@ -22,20 +22,17 @@
             <thead>
               <tr>
                 <th>Nama peserta</th>
-                <th>Latihan-ke</th>
+                <th>Evaluasi</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              @foreach($kursus as $k)
+              @foreach($peserta as $peserta)
               <tr>
-                <td class="align-middle">{{$k->peserta->nama}}</td>
-                <td class="align-middle">{{$k->kursus_ke}}</td>
-                @if($k->sudah_isi == 0)
-                <td><a class="btn btn-primary btn-block" href="{{ url('/instruktur/evaluasi/'.$k->id_kursus.'/edit') }}">Isi evaluasi</a></td>
-                @elseif($k->sudah_isi == 1)
-                <td><button class="btn btn-block" onclick="location.href='{{ url('/instruktur/evaluasi/'.$k->id_kursus.'/edit') }}'">Lihat evaluasi</button></td>
-                @endif
+                <td class="align-middle">{{$peserta->nama}}</td>
+                <td class="align-middle">{{$peserta->evaluasi}}</td>
+                <td><a class="btn btn-primary" href="{{ url('/instruktur/evaluasi/'.$peserta->id_peserta.'/edit') }}">Edit</a>
+                </td>
               </tr>
               @endforeach
             </tbody>
