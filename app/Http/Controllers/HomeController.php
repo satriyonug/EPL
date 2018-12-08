@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         if(Auth::check()){
           if(Auth::user()->role == "P"){
-            $datapeserta = Peserta::where('id', Auth::user()->id)->get();
+            $datapeserta = $this->peserta->where('id', Auth::user()->id)->get();
             if($datapeserta[0]->verifikasi == '0'){
               return view('peserta.menunggu-verifikasi');
             }
@@ -36,7 +36,16 @@ class HomeController extends Controller
             }
           }
           elseif(Auth::user()->role == "I"){
-            return redirect('/instruktur/jadwal');
+            $ins = $this->instruktur->where('id', Auth::user()->id)->first();
+            if($ins->verifikasi == '1')
+            {
+              return redirect('/instruktur/jadwal');
+            }
+            else
+            {
+              return view('instruktur.home');
+            }
+            
           }
           elseif(Auth::user()->role == "A"){
             return redirect('/admin/peserta');
@@ -52,7 +61,11 @@ class HomeController extends Controller
         if(Auth::check()){
           if(Auth::user()->role == "P"){
             $datapeserta = $this->peserta->where('id', Auth::user()->id)->get();
-            if($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 && Pembayaran::where([['id_peserta', $datapeserta[0]->id_peserta], ['nomor_rekening', NULL]])->count() > 0){
+            if($datapeserta[0]->verifikasi == 0)
+            {
+              return redirect('home');
+            }
+            elseif($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 && Pembayaran::where([['id_peserta', $datapeserta[0]->id_peserta], ['nomor_rekening', NULL]])->count() > 0){
               return redirect('/masukkan-rekening/'. $datapeserta[0]->id_peserta);
             }
             elseif($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 && Pembayaran::where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']])->count() > 0){
@@ -70,7 +83,11 @@ class HomeController extends Controller
         if(Auth::check()){
           if(Auth::user()->role == "P"){
             $datapeserta = $this->peserta->where('id', Auth::user()->id)->get();
-            if($datapeserta[0]->id_jadwal == NULL && $datapeserta[0]->id_instruktur == NULL ){
+            if($datapeserta[0]->verifikasi == 0)
+            {
+              return redirect('home');
+            }
+            elseif($datapeserta[0]->id_jadwal == NULL && $datapeserta[0]->id_instruktur == NULL ){
               return redirect('/jadwal');
             }
             else{
@@ -81,10 +98,7 @@ class HomeController extends Controller
               $instruktur2 = $this->instruktur->select('nama','id_instruktur')
               ->where('id_instruktur',$jadwal2[0]['id_instruktur'])->get()->toArray();
               $instruktur = $instruktur2[0]['nama'];
-              // $id_ins = $this->peserta->where('id_peserta','=',$datapeserta[0]->id_peserta)
-              // ->update([
-              //   'id_instruktur' => $instruktur2[0]['id_instruktur']
-              // ]);
+
               $jamMulai = $jadwal2[0]['jam_mulai'];
               $jamSelesai = $jadwal2[0]['jam_selesai'];
               $hari = $jadwal2[0]['hari'];

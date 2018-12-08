@@ -23,6 +23,7 @@ class CreateInstrukturTable extends Migration
           $table->string('foto_instruktur')->nullable();
           $table->string('nomor_telepon');
           $table->string('alamat');
+          $table->char('verifikasi', 1);
       });
       
     }

@@ -12,9 +12,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         @if(Auth::check())
-        <li><a href="/menunggu-verifikasi">Verifikasi</a></li>
+        <!-- <li><a href="/menunggu-verifikasi">Verifikasi</a></li> -->
         <li><a href="/menunggu-bayar">Pembayaran</a></li>
-        <li><a href="/jadwal">Jadwal</a></li>
+        <li><a href="/pilih-jadwal">Jadwal</a></li>
         
         <li><a>Halo, {{ Auth::user()->nama }}</a></li>
         <li class="btn-trial"><a href="/logout">Logout</a></li>

@@ -32,6 +32,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
     });
     Route::post('/register-instruktur/create', 'InstrukturController@store');
     Route::post('/admin/mobil/create', 'MobilController@store');
+    Route::post('/admin/instruktur/verif', 'InstrukturController@verifikasi');
     Route::group(['middleware'=>['admin']],function(){
         Route::resource('/admin/verifikasi', 'VerifikasiController');
         Route::resource('/admin/pembayaran', 'PembayaranController');
@@ -58,7 +59,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
         });
     });
     Route::group(['middleware'=>['instruktur']],function(){
-
+        
         Route::get('/instruktur/jadwal', 'JadwalController@lihatJadwal');
         Route::resource('/instruktur/evaluasi', 'KursusController');
     });

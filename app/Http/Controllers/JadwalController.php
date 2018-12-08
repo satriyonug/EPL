@@ -44,7 +44,7 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        $instruktur = $this->instruktur->all();
+        $instruktur = $this->instruktur->where('verifikasi',1)->get();
         return view('admin.jadwal.create',compact('instruktur'));
     }
 

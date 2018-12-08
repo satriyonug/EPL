@@ -61,6 +61,11 @@ class InstrukturController extends Controller
             // get the extension
             $extension = $imageName->getClientOriginalExtension();
             Storage::disk('public')->put($imageName->getFilename().'.'.$extension, File::get($imageName));
+            $image = $imageName->getFilename().'.'.$extension;
+        }
+        else
+        {
+            $image = NULL;
         }
 
         $user = $this->user->create([
@@ -78,7 +83,8 @@ class InstrukturController extends Controller
             'no_sim' => $request['no_sim'],
             'nomor_telepon' => $request['nomor_telepon'],
             'alamat' => $request['alamat'],
-            'foto_instruktur' => $imageName->getFilename().'.'.$extension,
+            'foto_instruktur' => $image,
+            'verifikasi' => 0,
         ]);
         
         return redirect('/admin/instruktur');
@@ -155,5 +161,12 @@ class InstrukturController extends Controller
         $instruktur->delete();
         $user->delete();
         return redirect('/admin/instruktur')->with('info','Instruktur berhasil dihapus');
+    }
+
+    public function verifikasi(Request $request)
+    {
+        $verifikasi = $this->instruktur->where('id_instruktur', $request->id_instruktur)
+        ->update(['verifikasi' => 1]);
+        return redirect('/admin/instruktur');
     }
 }
