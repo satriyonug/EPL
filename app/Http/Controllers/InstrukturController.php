@@ -55,17 +55,13 @@ class InstrukturController extends Controller
         //     'nomor_rekening' => 'numeric|required' //jan bikin semua validator
         //     ]);
         $imageName = $request->file('foto_instruktur');
-        
+        $image = NULL;
         if($imageName!==null)
         {
             // get the extension
             $extension = $imageName->getClientOriginalExtension();
             Storage::disk('public')->put($imageName->getFilename().'.'.$extension, File::get($imageName));
             $image = $imageName->getFilename().'.'.$extension;
-        }
-        else
-        {
-            $image = NULL;
         }
 
         $user = $this->user->create([

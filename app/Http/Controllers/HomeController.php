@@ -11,12 +11,13 @@ use App\Jadwal;
 use App\Instruktur;
 class HomeController extends Controller
 {
-    public function __construct(Peserta $peserta, User $user,Jadwal $jadwal, Instruktur $instruktur)
+    public function __construct(Peserta $peserta, User $user,Jadwal $jadwal, Instruktur $instruktur, Pembayaran $pembayaran)
     {
         $this->peserta = $peserta;
         $this->user = $user;
         $this->jadwal = $jadwal;
         $this->instruktur = $instruktur;
+        $this->pembayaran = $pembayaran;
     }
     /**
      * Create a new controller instance.
@@ -31,7 +32,7 @@ class HomeController extends Controller
             if($datapeserta[0]->verifikasi == '0'){
               return view('peserta.menunggu-verifikasi');
             }
-            else {
+            elseif($datapeserta[0]->verifikasi == '1'){
               return view('peserta.selesai-verifikasi');
             }
           }
@@ -41,7 +42,7 @@ class HomeController extends Controller
             {
               return redirect('/instruktur/jadwal');
             }
-            else
+            elseif($ins->verifikasi == '0')
             {
               return view('instruktur.home');
             }
@@ -50,9 +51,6 @@ class HomeController extends Controller
           elseif(Auth::user()->role == "A"){
             return redirect('/admin/peserta');
           }
-        }
-        else{
-          return redirect('/');
         }
     }
 
@@ -65,13 +63,17 @@ class HomeController extends Controller
             {
               return redirect('home');
             }
-            elseif($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 && Pembayaran::where([['id_peserta', $datapeserta[0]->id_peserta], ['nomor_rekening', NULL]])->count() > 0){
+            elseif($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 
+            && $this->pembayaran->where([['id_peserta', $datapeserta[0]->id_peserta], 
+            ['nomor_rekening', NULL]])->count() > 0){
               return redirect('/masukkan-rekening/'. $datapeserta[0]->id_peserta);
             }
-            elseif($datapeserta[0]->verifikasi == 1 && $datapeserta[0]->sisa_kursus == 0 && Pembayaran::where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']])->count() > 0){
+            elseif($datapeserta[0]->verifikasi == 1 
+            && $datapeserta[0]->sisa_kursus == 0 && $this->pembayaran->
+            where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']])->count() > 0){
               return view('peserta.menunggu-bayar');
             }
-            else{
+            elseif($this->pembayaran->where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '1']])){
               return view('peserta.selesai-bayar');
             }
           }
@@ -83,14 +85,14 @@ class HomeController extends Controller
         if(Auth::check()){
           if(Auth::user()->role == "P"){
             $datapeserta = $this->peserta->where('id', Auth::user()->id)->get();
-            if($datapeserta[0]->verifikasi == 0)
+            if($datapeserta[0]->verifikasi == 0 || $this->pembayaran->where([['id_peserta', $datapeserta[0]->id_peserta], ['verifikasi', '0']]) )
             {
               return redirect('home');
             }
             elseif($datapeserta[0]->id_jadwal == NULL && $datapeserta[0]->id_instruktur == NULL ){
               return redirect('/jadwal');
             }
-            else{
+            elseif($datapeserta[0]->id_jadwal != NULL && $datapeserta[0]->id_instruktur != NULL ){
               $peserta = $this->peserta->select('id','id_peserta','id_instruktur','id_jadwal','nama')
               ->where('id_peserta','=',$datapeserta[0]->id_peserta)->get()->toArray();
               $jadwal2 = $this->jadwal->select('hari','jam_mulai','jam_selesai','id_instruktur')
