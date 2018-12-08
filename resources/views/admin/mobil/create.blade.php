@@ -7,21 +7,44 @@
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">Data Mobil baru</div>
       <div class="card-body">
-        <form method="POST" action="/admin/mobil">
+        <form method="POST" action="{{URL('/admin/mobil/create')}}" enctype="multipart/form-data">
           {{ csrf_field() }}
           <div class="form-group">
             <div class="form-row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <label>Jenis/merk</label>
                 <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" name="jenis_merk">
+              </div>
+            
+              <div class="col-md-6">
+                <label>Tipe Mobil</label>
+                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" name="tipe_mobil">
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="form-row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <label>Nomor polisi</label>
                 <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" name="nomor_polisi">
+              </div>
+            
+              <div class="col-md-6">
+                <label>CC</label>
+                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" name="cc">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label>Nomor Rangka</label>
+                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" name="nomor_rangka">
+              </div>
+            
+              <div class="col-md-6">
+                <label>Foto Mobil</label>
+                <input id="foto_mobil" type="file" aria-describedby="nameHelp" name="foto_mobil">
               </div>
             </div>
           </div>

@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembayaran;
+use App\Peserta;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class MasukkanRekeningController extends Controller
 {
+  public function __construct(Peserta $peserta,Pembayaran $pembayaran)
+    {
+        $this->peserta = $peserta;
+        $this->pembayaran = $pembayaran;
+    }
 
   public function show($ids)
   {
-    $jumlahkursus = Pembayaran::where([['id_peserta', $ids],['nomor_rekening', NULL]])->value('jumlah_kursus');
+    $jumlahkursus = $this->pembayaran->where([['id_peserta', $ids],['nomor_rekening', NULL]])->value('jumlah_kursus');
     if($jumlahkursus == 8){
       $jumlahtagihan = 160000;
     }
@@ -40,8 +46,11 @@ class MasukkanRekeningController extends Controller
           Storage::disk('public')->put($imageName->getFilename().'.'.$extension, File::get($imageName));
       }
 
-    $pembayaran = Pembayaran::where([['id_peserta', $request->id_peserta],['nomor_rekening', NULL]])->update(['nomor_rekening' => $request->no_rekening,'foto_pembayaran' => $imageName->getFilename().'.'.$extension]);
-    return redirect('/home');
+    $pembayaran = $this->pembayaran->where([['id_peserta', $request->id_peserta],
+    ['nomor_rekening', NULL]])
+    ->update(['nomor_rekening' => $request->no_rekening,
+    'foto_pembayaran' => $imageName->getFilename().'.'.$extension]);
+    return redirect('/menunggu-bayar');
 
   }
 }

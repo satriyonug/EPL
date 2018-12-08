@@ -15,6 +15,7 @@ class PilihJadwalController extends Controller
         $this->peserta = $peserta;
         $this->jadwal = $jadwal;
         $this->user = $user;
+        
     }
     /**
      * Display a listing of the resource.
@@ -45,10 +46,15 @@ class PilihJadwalController extends Controller
      */
     public function store(Request $request)
     {
-      $user = $this->user->where('email', Auth::user()->email)->value('id');
-      $idPeserta = $this->peserta->where('id', $user)->value('id_peserta');
-      $pembayaran = $this->peserta->where('id', Auth::user()->id)->update(['id_jadwal' => $request->id_jadwal]);
-      return redirect('/home');
+      
+        $user = $this->user->where('email', Auth::user()->email)->value('id');
+        $idPeserta = $this->peserta->where('id', $user)->value('id_peserta');
+        $jadwal = $this->jadwal->where('id_jadwal', $request->id_jadwal)->first();
+      
+        $pembayaran = $this->peserta->where('id', Auth::user()->id)
+        ->update(['id_jadwal' => $request->id_jadwal, 'id_instruktur' => $jadwal->id_instruktur]);
+      
+      return redirect('/pilih-jadwal');
     }
 
     /**
@@ -57,9 +63,9 @@ class PilihJadwalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
+    // public function show(Request $request)
     // {
-    //     //
+    //     return dd($request->id_instruktur);        
     // }
 
     /**

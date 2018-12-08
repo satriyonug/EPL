@@ -50,7 +50,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => public_path().'/img/buktiBayar',
+            'root' => public_path().'/img/foto',
             'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],

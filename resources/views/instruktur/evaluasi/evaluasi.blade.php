@@ -11,6 +11,7 @@
         <div class="col-md-3 pull-left">
           <h3 class="align-middle">Evaluasi</h3>
         </div>
+        <a class="btn btn-primary float-right" href="/admin/evaluasi/create">Data baru</a>
         <div class="col-md-3 pull-right">
 
         </div>

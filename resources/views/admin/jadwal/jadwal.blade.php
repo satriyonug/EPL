@@ -20,6 +20,7 @@
             <thead>
               <tr>
                 <th>Hari kursus</th>
+                <th>Instruktur</th>
                 <th>Waktu mulai</th>
                 <th>Waktu selesai</th>
                 <th></th>
@@ -29,6 +30,7 @@
               @foreach($jadwal as $j)
               <tr>
                 <td class="align-middle">{{$j->hari}}</td>
+                <td class="align-middle">{{ $j->nama }}</td>
                 <td class="align-middle">{{$j->jam_mulai}}</td>
                 <td class="align-middle">{{$j->jam_selesai}}</td>
                 <td><a class="btn btn-primary btn-block" href="{{ url('/admin/jadwal/'.$j->id_jadwal.'/edit') }}">Edit</a></td>

@@ -30,7 +30,16 @@
                 <td class="align-middle">{{$m->nomor_polisi}}</td>
                 <td class="align-middle">{{$m->warna}}</td>
                 <td class="align-middle">{{$m->tahun}}</td>
-                <td><a class="btn btn-primary btn-block" href="{{ url('/admin/mobil/'.$m->id_mobil.'/edit') }}">Edit</a></td>
+                <td class="align-middle"><img style="max-width: 100px; height: 100px;" src="{{ URL::asset('img/foto/' . $m->foto_mobil) }}" alt="{{$m->foto_mobil}}" /></td>
+                <td><a class="btn btn-primary btn-block" href="{{ url('/admin/mobil/'.$m->id_mobil.'/edit') }}">Edit</a>
+                <a class="btn btn-danger" style="padding:0px;">
+                  <form action="/admin/mobil/{{ $m->id_mobil }}" method="POST">
+                    {{csrf_field()}}
+                    <input name="_method" type="hidden" value="delete">
+                    <button class="btn btn-danger">Hapus</button>
+                  </form>
+                  </a>
+                </td>
               </tr>
               @endforeach
             </tbody>

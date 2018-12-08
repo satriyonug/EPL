@@ -29,8 +29,9 @@
   <div class="container">
     <div class="row">
       <div class="header-section text-center">
-        <h2>Contact Us</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem nesciunt vitae,<br> maiores, magni dolorum aliquam.</p>
+        <h2>Contact Person</h2>
+        <p>Apabila ada pertanyaan bisa menghubungi Satriyo</p>
+        <p>Satriyo : 082242556787</p>
         <hr class="bottom-line">
       </div>
       <div id="sendmessage">Your message has been sent. Thank you!</div>

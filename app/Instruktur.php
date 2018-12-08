@@ -9,7 +9,7 @@ class Instruktur extends Model
     public $timestamps = false;
     protected $table = 'instruktur';
     protected $primaryKey = 'id_instruktur';
-    protected $fillable = ['id', 'nama', 'jenis_kelamin', 'no_ktp', 'no_sim', 'nomor_telepon', 'alamat'];
+    protected $fillable = ['id', 'nama', 'jenis_kelamin', 'no_ktp', 'no_sim', 'nomor_telepon', 'alamat','foto_instruktur'];
 
     public function instrukturMemilih()
     {

@@ -18,13 +18,15 @@
             <h4>{{$j->hari}}</h4>
             <h5>Waktu : {{$j->jam_mulai}}-{{$j->jam_selesai}}</h5>
           </div>
-
           <!-- Plean Detail -->
           <div class="price-in mart-15">
-            <form method="POST" action="/jadwal">
-              {{ csrf_field() }}
-              <input name="id_jadwal" type="hidden" value="{{$j->id_jadwal}}">
-            <input  class="btn btn-bg green btn-block" value="Simpan" type="submit">
+            <a>
+              <form action="/jadwal/update" method="POST">
+                {{csrf_field()}}
+                <input name="id_jadwal" type="hidden" value="{{$j->id_jadwal}}">
+                <button class="btn btn-success">Submit</button>
+              </form>
+            </a>
           </div>
         </div>
       </div>

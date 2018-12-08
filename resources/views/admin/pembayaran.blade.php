@@ -22,8 +22,10 @@
                 <th>Status pembayaran</th>
               </tr>
             </thead>
+            
             <tbody>
               @foreach($pembayaran as $p)
+              
               <tr>
                 <td class="align-middle">{{$p->peserta->nama}}</td>
                 @if($p->jumlah_kursus == 8)
@@ -35,7 +37,7 @@
                 @endif
                 <td class="align-middle">{{$p->nomor_rekening}}</td>
                 <td class="align-middle">{{$p->updated_at}}</td>
-                <td class="align-middle"><img src="{{ URL::asset('img/buktiBayar/' . $p->foto_pembayaran) }}" alt="{{$p->foto_pembayaran}}" /></td>
+                <td class="align-middle"><img style="max-width: 100px; height: 100px;" src="{{ URL::asset('img/foto/' . $p->foto_pembayaran) }}" alt="{{$p->foto_pembayaran}}" /></td>
                 @if($p->verifikasi == '0')
                   <td>
                     <form action="{{ url('/admin/pembayaran', [$p->id_pembayaran]) }}" method="post" id="workshop-newsletter-form">

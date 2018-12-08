@@ -23,6 +23,7 @@
                 <th>No KTP</th>
                 <th>Alamat</th>
                 <th>Telepon</th>
+                <th>Foto</th>
                 <th></th>
               </tr>
             </thead>
@@ -35,14 +36,16 @@
                 <td class="align-middle">{{$i->no_ktp}}</td>
                 <td class="align-middle">{{$i->alamat}}</td>
                 <td class="align-middle">{{$i->nomor_telepon}}</td>
-                <td><a class="btn btn-primary btn-block" href="{{ url('/admin/instruktur/'.$i->id_instruktur.'/edit') }}">Edit</a></td>
-                <td><a class="btn btn-danger" style="padding:0px;">
+                <td class="align-middle"><img style="max-width: 100px; height: 100px;" src="{{ URL::asset('img/foto/' . $i->foto_instruktur) }}" alt="{{$i->foto_instruktur}}" /></td>
+                <td><a class="btn btn-primary btn-block" href="{{ url('/admin/instruktur/'.$i->id_instruktur.'/edit') }}">Edit</a>
+                  <a class="btn btn-danger" style="padding:0px;">
                   <form action="/admin/instruktur/{{ $i->id_instruktur }}" method="POST">
                     {{csrf_field()}}
                     <input name="_method" type="hidden" value="delete">
                     <button class="btn btn-danger">Hapus</button>
                   </form>
-                </a></td>
+                  </a>
+                </td>
               </tr>
               @endforeach
             </tbody>

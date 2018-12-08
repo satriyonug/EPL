@@ -9,7 +9,7 @@ class Mobil extends Model
     public $timestamps = false;
     protected $table = 'mobil';
     protected $primaryKey = 'id_mobil';
-    protected $fillable = ['nomor_polisi', 'jenis_merk', 'warna', 'tahun'];
+    protected $fillable = ['nomor_polisi', 'jenis_merk','tipe_mobil','cc','nomor_rangka','id_jadwal','foto_mobil', 'warna', 'tahun'];
 
     public function kursus()
     {

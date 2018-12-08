@@ -24,7 +24,8 @@ class JadwalController extends Controller
 
     public function index()
     {
-        $jadwal = $this->jadwal->paginate(10);
+        $jadwal = $this->jadwal->join('instruktur','instruktur.id_instruktur','=','jadwal.id_instruktur')
+        ->paginate(10);
         return view('admin.jadwal.jadwal', ['jadwal' => $jadwal]);
     }
 
@@ -43,7 +44,8 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        return view('admin.jadwal.create');
+        $instruktur = $this->instruktur->all();
+        return view('admin.jadwal.create',compact('instruktur'));
     }
 
     /**

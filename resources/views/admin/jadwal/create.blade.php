@@ -27,6 +27,18 @@
           </div>
           <div class="form-group">
             <div class="form-row">
+              <div class="col-md-12">
+                <label>Instruktur</label>
+                <select class="form-control" id="sel1" name="id_instruktur">
+                @foreach($instruktur as $instruktur)
+                  <option value="{{$instruktur->id_instruktur}}">{{ $instruktur-> nama }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
               <div class="col-md-6">
                 <label>Waktu mulai</label>
                 <input class="form-control" id="exampleInputLastName" type="time" aria-describedby="nameHelp" name="jam_mulai">

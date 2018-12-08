@@ -24,7 +24,14 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 //Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
-
+    Route::get('/instruktur', function() {
+        return view('instruktur.login');
+    });
+    Route::get('/register-instruktur', function() {
+        return view('instruktur.register');
+    });
+    Route::post('/register-instruktur/create', 'InstrukturController@store');
+    Route::post('/admin/mobil/create', 'MobilController@store');
     Route::group(['middleware'=>['admin']],function(){
         Route::resource('/admin/verifikasi', 'VerifikasiController');
         Route::resource('/admin/pembayaran', 'PembayaranController');
@@ -38,12 +45,14 @@ Route::get('/logout', 'Auth\LoginController@logout');
     Route::group(['middleware'=>['peserta']],function(){
         Route::post('/masukkan-rekening', 'MasukkanRekeningController@update');
         Route::get('/masukkan-rekening/{id}', 'MasukkanRekeningController@show');
+        Route::get('/bayar/{id}', 'MasukkanRekeningController@index');
 
         Route::get('/jadwal', 'PilihJadwalController@index');
-        Route::post('/jadwal', 'PilihJadwalController@store');
+        Route::post('/jadwal/update', 'PilihJadwalController@store');
 
-        Route::get('/menunggu-bayar', 'HomeController@index');
+        Route::get('/menunggu-bayar', 'HomeController@menungguBayar');
         Route::get('/menunggu-verifikasi', 'HomeController@index');
+        Route::get('/pilih-jadwal', 'HomeController@jadwal');
         Route::get('/user/evaluasi1', function () {
             return view('peserta.evaluasi');
         });

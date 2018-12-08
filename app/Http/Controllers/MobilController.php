@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mobil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class MobilController extends Controller
 {
@@ -40,7 +42,26 @@ class MobilController extends Controller
      */
     public function store(Request $request)
     {
-      $mobil = $this->mobil->create($request->all());
+      $imageName = $request->file('foto_mobil');
+      if($imageName!==null)
+      {
+          $extension = $imageName->getClientOriginalExtension();
+          Storage::disk('public')->put($imageName->getFilename().'.'.$extension, File::get($imageName));
+      }
+
+      $mobil = new Mobil;
+      $mobil->nomor_polisi = $request->nomor_polisi;
+      $mobil->jenis_merk = $request->jenis_merk;
+      $mobil->tipe_mobil = $request->tipe_mobil;
+      $mobil->cc = $request->cc;
+      $mobil->nomor_rangka = $request->nomor_rangka;
+      $mobil->foto_mobil = $imageName->getFilename().'.'.$extension;
+      $mobil->warna = $request->warna;  
+      $mobil->tahun = $request->tahun;
+      $mobil->save();
+      // $mobil = $this->mobil->create($request->all());
+
+    
       return redirect('/admin/mobil');
     }
 
@@ -87,8 +108,9 @@ class MobilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy($ids)
+    {
+      $mobil = $this->mobil->where('id_mobil',$ids)->delete();
+      return redirect('/admin/mobil')->with('info','mobil berhasil dihapus');
+    }
 }

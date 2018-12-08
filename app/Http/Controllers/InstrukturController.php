@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Instruktur;
 use App\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class InstrukturController extends Controller
 {
@@ -19,6 +21,11 @@ class InstrukturController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        $instrukturPaginated = $this->instruktur->paginate(10);
+        return view('admin.instruktur.instruktur', ['instruktur' => $instrukturPaginated]);
+    }
 
     public function index()
     {
@@ -44,9 +51,17 @@ class InstrukturController extends Controller
      */
     public function store(Request $request)
     {
-        $test = $this->validate($request,[
-            'nomor_rekening' => 'numeric|required' //jan bikin semua validator
-            ]);
+        // $test = $this->validate($request,[
+        //     'nomor_rekening' => 'numeric|required' //jan bikin semua validator
+        //     ]);
+        $imageName = $request->file('foto_instruktur');
+        
+        if($imageName!==null)
+        {
+            // get the extension
+            $extension = $imageName->getClientOriginalExtension();
+            Storage::disk('public')->put($imageName->getFilename().'.'.$extension, File::get($imageName));
+        }
 
         $user = $this->user->create([
             'email' => $request['email'],
@@ -63,7 +78,9 @@ class InstrukturController extends Controller
             'no_sim' => $request['no_sim'],
             'nomor_telepon' => $request['nomor_telepon'],
             'alamat' => $request['alamat'],
+            'foto_instruktur' => $imageName->getFilename().'.'.$extension,
         ]);
+        
         return redirect('/admin/instruktur');
     }
 
